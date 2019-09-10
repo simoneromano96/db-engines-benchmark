@@ -2,7 +2,7 @@
 
 This repo is used to test various queries against different databases from a Rust Backend.
 
-Every backend uses both simple, pure queries and an ORM or ODM to have a layer of abstraction and better control of types from the database.
+Every backend uses only pure queries, meaning that most of the work will be done from a client (if not implemented already I'll implement it).
 
 The client which simulate the load is in Python.
 
