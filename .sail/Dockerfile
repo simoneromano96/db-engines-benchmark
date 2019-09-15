@@ -54,3 +54,15 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-4.5.11-Linux-x86
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate base" >> ~/.bashrc
 
+# Rust setup
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
+
+ENV PATH=/home/user/.cargo/bin:$PATH
+
+RUN rustup component add rls 
+
+# VSCode extensions
+RUN installext rust-lang.rust
+RUN installext serayuzgur.crates
+RUN installext bungcip.better-toml
+
