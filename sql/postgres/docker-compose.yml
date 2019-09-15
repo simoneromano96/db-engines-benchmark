@@ -1,0 +1,27 @@
+version: "3.6"
+
+services:
+  postgres:
+    image: postgres:alpine
+    restart: unless-stopped
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: benchmark
+      POSTGRES_USER: bench
+      POSTGRES_PASSWORD: bench
+    volumes:
+      - ./db:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: unless-stopped
+    ports:
+      - 8080:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: simoneromano@tutanota.de
+      PGADMIN_DEFAULT_PASSWORD: bench
+    volumes:
+      - ./pgadmin:/var/lib/pgadmin
+
+

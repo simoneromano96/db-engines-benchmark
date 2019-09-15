@@ -11,3 +11,4 @@ Cargo.lock
 
 # Docker volumes
 db/
+pgadmin/
