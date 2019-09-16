@@ -1,31 +1,27 @@
 {
-	"folders": [
-		{
-			"name": "postgres",
-			"path": "/home/simoner/Projects/Projects/simoneromano96/db-engines-benchmark/sql/postgres"
-		},
-		{
-			"name": "mysql",
-			"path": "/home/simoner/Projects/Projects/simoneromano96/db-engines-benchmark/sql/mysql"
-		},
-		{
-			"name": "db-engines-benchmark",
-			"path": "/home/simoner/Projects/Projects/simoneromano96/db-engines-benchmark"
-		}
-	],
-	"settings": {
-		"sqltools.connections": [
-			{
-				"askForPassword": false,
-				"connectionTimeout": 30,
-				"database": "benchmark",
-				"dialect": "PostgreSQL",
-				"name": "Postgres Bench",
-				"password": "bench",
-				"port": 5432,
-				"server": "localhost",
-				"username": "bench"
-			}
-		]
-	}
+  "folders": [
+    {
+      "name": "postgres",
+      "path": "/home/simoner/Projects/Projects/simoneromano96/db-engines-benchmark/sql/postgres"
+    },
+    {
+      "name": "mysql",
+      "path": "/home/simoner/Projects/Projects/simoneromano96/db-engines-benchmark/sql/mysql"
+    }
+  ],
+  "settings": {
+    "sqltools.connections": [
+      {
+        "askForPassword": false,
+        "connectionTimeout": 30,
+        "database": "benchmark",
+        "dialect": "PostgreSQL",
+        "name": "Postgres Bench",
+        "password": "bench",
+        "port": 5432,
+        "server": "localhost",
+        "username": "bench"
+      }
+    ]
+  }
 }
