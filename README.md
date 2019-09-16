@@ -1,6 +1,6 @@
 # db-engines-benchmark
 
-This repo is used to test various queries against different databases from a Rust Backend.
+This repo is used to test various queries against different databases from a Rust Backend, only rust-native db clients will be taken into account.
 
 Every backend uses only pure queries, meaning that most of the work will be done from a client (if not implemented already I'll implement it).
 
@@ -12,6 +12,8 @@ I suppose that the database schema (or equivalent) has already been done so for 
 
 TODOS:
 
+- [ ] DB Preparation (if present)
+- [ ] Random DB clients tests
 - [ ] Base Actix server
 - [ ] REST API
 - [ ] GraphQL API
