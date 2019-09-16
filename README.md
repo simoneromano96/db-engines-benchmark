@@ -26,7 +26,7 @@ TODOS:
 SQL
 
 - [ ] MySQL ! - https://docs.rs/mysql/16.1.0/mysql/
-- [ ] MariaDB ! - https://docs.rs/mysql/16.1.0/mysql/
+- [ ] MariaDB - https://docs.rs/mysql/16.1.0/mysql/
 - [ ] Postgres ! - https://docs.rs/postgres/0.16.0-rc.2/postgres/
 
 NoSQL
