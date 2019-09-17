@@ -82,21 +82,38 @@ fn main() {
     for customer in customers {
         let pool = pool.clone();
         thread::spawn(move || {
-            let connection = pool.get().expect("PANIC!");
-            connection.prepare("");            
+            let connection = pool.get().expect("Connection error");
+            match connection.prepare(
+                "INSERT INTO Customer (id, first_name, last_name, email) values ($1, $2, $3, $4)",
+            ) {
+                Ok(stmt) => stmt
+                    .execute(&[
+                        &(customer.id.to_string()),
+                        &customer.first_name,
+                        &customer.last_name,
+                        &customer.email,
+                    ])
+                    .expect("Inserted correctly"),
+                Err(e) => {
+                    println!("Error: {:?}", e);
+                    return;
+                }
+            };
         });
     }
 
-    let stmt = match pool.prepare("insert into blog (title, body) values ($1, $2)") {
-    Ok(stmt) => stmt,
-    Err(e) => {
-        println!("Preparing query failed: {}", e);
-        return;
+    /*
+    let stmt = match pool.prepare("INSERT INTO Customer (id, first_name, last_name, email) values ($1, $2, $3, $4)") {
+        Ok(stmt) => stmt,
+        Err(e) => {
+            println!("Preparing query failed: {}", e);
+            return;
+        }
+    };
+    for i in range(1, 5u) {
+        let title = format!("Blogpost number {}", i);
+        let text = format!("Content of the blogpost #{}", i);
+        stmt.execute(&[&title, &text]).ok().expect("Inserting blogposts failed");
     }
-};
-for i in range(1, 5u) {
-    let title = format!("Blogpost number {}", i);
-    let text = format!("Content of the blogpost #{}", i);
-    stmt.execute(&[&title, &text]).ok().expect("Inserting blogposts failed");
-}
+    */
 }
