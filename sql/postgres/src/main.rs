@@ -83,6 +83,15 @@ fn main() {
         let pool = pool.clone();
         thread::spawn(move || {
             let connection = pool.get().expect("Connection error");
+            connection.prepare(
+                "INSERT INTO \"Customer\" (\"id\", \"first_name\", \"last_name\", \"email\") values ($1, $2, $3, $4)",
+            ).unwrap().execute(&[                        
+                &customer.id,
+                &customer.first_name,
+                &customer.last_name,
+                &customer.email,
+            ]).unwrap();
+            /*
             match connection.prepare(
                 "INSERT INTO \"Customer\" (\"id\", \"first_name\", \"last_name\", \"email\") values ($1, $2, $3, $4)",
             ) {
@@ -93,13 +102,14 @@ fn main() {
                         &customer.last_name,
                         &customer.email,
                     ])
-                    .expect("Inserted correctly"),
+                    .expect("Insertion error"),
                 Err(e) => {
                     println!("Error: {:?}", e);
                     return;
                 }
             };
-        });
+            */
+        }).join().unwrap();
     }
 
     /*

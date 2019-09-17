@@ -8,7 +8,7 @@ edition = "2018"
 
 [dependencies]
 postgres = { version="0.15.2", features = ["with-uuid"] }
-uuid = { version = "0.7.4", features = ["v4"] }
+uuid = { version = "0.5", features = ["v4"] }
 rust_decimal = "1.0.3"
 fake = "2.2.0"
 r2d2 = "0.8.5"
