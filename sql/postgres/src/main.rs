@@ -84,7 +84,7 @@ fn main() {
         thread::spawn(move || {
             let connection = pool.get().expect("Connection error");
             match connection.prepare(
-                "INSERT INTO Customer (id, first_name, last_name, email) values ($1, $2, $3, $4)",
+                "INSERT INTO \"Customer\" (\"id\", \"first_name\", \"last_name\", \"email\") values ($1, $2, $3, $4)",
             ) {
                 Ok(stmt) => stmt
                     .execute(&[
