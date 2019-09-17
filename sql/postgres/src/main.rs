@@ -4,6 +4,7 @@ extern crate postgres;
 use r2d2::Pool;
 use r2d2_postgres::{PostgresConnectionManager, TlsMode};
 // Threading for r2d2
+use std::sync::Arc;
 use std::thread;
 // Fake data
 use fake::faker::internet::raw::*;
@@ -64,8 +65,7 @@ fn main() {
     )
     .expect("Could not create a connection manager");
 
-    let pool: Pool<PostgresConnectionManager> =
-        Pool::new(manager).expect("Could not create connection pool");
+    let pool = Arc::new(Pool::new(manager).expect("Could not create connection pool"));
 
     // Run some test queries
     // Create some customers
