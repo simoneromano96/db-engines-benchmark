@@ -88,7 +88,7 @@ fn main() {
             ) {
                 Ok(stmt) => stmt
                     .execute(&[
-                        &(customer.id.to_string()),
+                        &customer.id,
                         &customer.first_name,
                         &customer.last_name,
                         &customer.email,
