@@ -1,23 +1,25 @@
 extern crate postgres;
 
 // Connection Pool manager
+use actix_web::Responder;
 use r2d2::Pool;
 use r2d2_postgres::{PostgresConnectionManager, TlsMode};
-// Threading for r2d2
-use std::sync::Arc;
-use std::thread;
-// Fake data
-use fake::faker::internet::raw::*;
-use fake::faker::name::raw::*;
-use fake::locales::EN;
-use fake::Fake;
+// Actix
+use actix_web::{delete, get, post, put};
+use actix_web::{middleware, web, App, Error, HttpResponse, HttpServer};
+// Log
+use env_logger;
+use std::io;
+// Serde serialisation
+use serde::{Serialize, Deserialize};
 
 // Uuid generation library
 use uuid::Uuid;
 // Decimal library
 use rust_decimal::Decimal;
 
-#[derive(Debug)]
+// Models
+#[derive(Serialize, Deserialize, Debug)]
 struct Customer {
     id: Uuid,
     first_name: String,
@@ -46,6 +48,61 @@ struct OrderItem {
     quantity: i8,
 }
 
+// Routes
+#[get("/ping")]
+fn index() -> impl Responder {
+    HttpResponse::Ok().json("pong")
+}
+
+#[get("/customers")]
+fn get_customers(
+    db: web::Data<Pool<PostgresConnectionManager>>, // From store
+) -> impl Responder {
+    let conn = db.get().unwrap();
+    let customers: Vec<Customer> = Vec::new();
+    for row in &conn.query("SELECT \"id\", \"first_name\", \"last_name\", \"email\" FROM \"Customer\"", &[]).unwrap() {
+        let customer = Customer {
+            id: row.get(0),
+            first_name: row.get(1),
+            last_name: row.get(2),
+            email: row.get(3),
+        };
+        println!("{:?}", customer);
+    }
+    HttpResponse::Ok().json(customers)
+}
+
+
+
+fn main() -> io::Result<()> {
+    std::env::set_var("RUST_LOG", "actix_web=debug");
+    env_logger::init();
+    let sys = actix_rt::System::new("postgres-bench");
+
+    // r2d2 pool
+    let manager: PostgresConnectionManager = PostgresConnectionManager::new(
+        "postgresql://bench:bench@localhost/benchmark",
+        TlsMode::None,
+    )
+    .expect("Could not create a connection manager");
+
+    let pool = r2d2::Pool::new(manager).expect("Could not create connection pool");
+
+    // start http server
+    HttpServer::new(move || {
+        App::new()
+            .data(pool.clone()) // <- store db pool in app state
+            .wrap(middleware::Logger::default())
+            .service(index)
+            .service(get_customers)
+    })
+    .bind("127.0.0.1:8083")?
+    .start();
+
+    sys.run()
+}
+
+/*
 fn main() {
     // DB Configuration
     // let mut config: Config = Config::new();
@@ -85,7 +142,7 @@ fn main() {
             let connection = pool.get().expect("Connection error");
             connection.prepare(
                 "INSERT INTO \"Customer\" (\"id\", \"first_name\", \"last_name\", \"email\") values ($1, $2, $3, $4)",
-            ).unwrap().execute(&[                        
+            ).unwrap().execute(&[
                 &customer.id,
                 &customer.first_name,
                 &customer.last_name,
@@ -127,3 +184,4 @@ fn main() {
     }
     */
 }
+*/

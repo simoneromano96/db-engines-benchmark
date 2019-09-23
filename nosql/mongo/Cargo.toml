@@ -1,0 +1,15 @@
+[package]
+name = "mongo"
+version = "0.1.0"
+authors = ["Simone Romano <simoneromano@tutanota.de>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+mongodb = { version = "0.4.0" }
+uuid = { version = "0.7.4", features = ["v4"] }
+fake = "2.2.0"
+rust_decimal = "1.0.3"
+serde = "1.0.101"
+serde_derive = "1.0.101"  # automatically derives Serialize and Deserialize impls for your data

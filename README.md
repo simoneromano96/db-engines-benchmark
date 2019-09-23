@@ -12,12 +12,11 @@ I suppose that the database schema (or equivalent) has already been done so for 
 
 TODOS:
 
-- [ ] DB Preparation (if present)
-- [ ] Random DB clients tests
-- [ ] Base Actix server
-- [ ] REST API
+- [x] DB Preparation (if present)
+- [x] Random DB clients tests
+- [x] Base Actix server (see postgres implementation)
 - [ ] GraphQL API
-- [ ] Python client
+- [ ] Python client (WIP)
 
 ## Tests and descriptions
 
@@ -27,14 +26,13 @@ SQL
 
 - [ ] MySQL ! - https://docs.rs/mysql/16.1.0/mysql/
 - [ ] MariaDB - https://docs.rs/mysql/16.1.0/mysql/
-- [ ] Postgres ! - https://docs.rs/postgres/0.16.0-rc.2/postgres/
+- [x] Postgres (WIP) - https://docs.rs/postgres/0.16.0-rc.2/postgres/
 
 NoSQL
 
 - [ ] Mongo ! - https://docs.rs/mongodb/0.4.0/mongodb/
-- [ ] Cassandra ! - https://docs.rs/cdrs/2.2.0/cdrs/
 - [ ] Neo4j - https://docs.rs/rusted_cypher/1.1.0/rusted_cypher/
-- [ ] ArangoDB - Client is WIP
+- [ ] ArangoDB - The db client is WIP, repo: https://github.com/simoneromano96/chameleon-db-client
 - [ ] CouchDB - https://couchdb-rs.github.io/couchdb/doc/v0.6.0/couchdb/
 
 RAM/Cache
